@@ -153,6 +153,7 @@ let keys = [
 
 let keyboard = document.querySelectorAll('.key');
 keyboard.forEach((el) => el.addEventListener("click", inputText));
+// keyboard.forEach((el) => el.addEventListener("click", capitalization));
 
 // Change language display
 
@@ -325,3 +326,41 @@ function inputText() {
     }
 }
 
+keyboard.forEach((el) => el.addEventListener("mousedown", caseUp));
+keyboard.forEach((el) => el.addEventListener("mouseup", caseDown));
+
+function caseUp() {
+    for (let i = 0; i < keys.length; i++) {
+        let index = [...keyboard].indexOf(this);
+        if (index === i && index === 42 || index === 54) {
+            isShifted = true;
+            if (lang === 'en') {
+                for (let i = 0; i < keys.length; i++) {
+                    document.getElementsByClassName('key')[i].innerHTML = keys[i].shiften;
+                }
+            } else if (lang === 'ru') {
+                for (let i = 0; i < keys.length; i++) {
+                    document.getElementsByClassName('key')[i].innerHTML = keys[i].shiftru;
+                }
+            }
+        }
+    }
+};
+
+function caseDown() {
+    for (let i = 0; i < keys.length; i++) {
+        let index = [...keyboard].indexOf(this);
+        if (index === i && index === 42 || index === 54) {
+            isShifted = false;
+            if (lang === 'en') {
+                for (let i = 0; i < keys.length; i++) {
+                    document.getElementsByClassName('key')[i].innerHTML = keys[i].en;
+                }
+            } else if (lang === 'ru') {
+                for (let i = 0; i < keys.length; i++) {
+                    document.getElementsByClassName('key')[i].innerHTML = keys[i].ru;
+                }
+            }
+        }
+    }
+};
