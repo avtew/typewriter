@@ -22,13 +22,38 @@ body {
   padding: 20px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: Courier New, Courier, monospace;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px;
+}
+
+.logo {
+  width: 50px;
+  height: 45px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
 }
 
 .input {
   max-width: 100%;
   height: 200px;
-  padding: 20px;
+  padding: 50px;
+  font-size: 16px;
+  font-family: Courier New, Courier, monospace;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  line-height: 24px;
   resize: none;
+  outline: none;
 }
 
 .board-table {
@@ -54,15 +79,14 @@ body {
 .key {
   min-width: 40px;
   height: 40px;
-  padding: 12px 5px 5px 5px;
+  padding: 12px 3px 5px 3px;
   color: #ffffff;
   font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
   text-align: center;
-  background-color: #336699;
+  background-color: #663333;
   border: none;
-  border-radius: 5px;
+  border-radius: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-transition: 0.05s;
@@ -71,7 +95,7 @@ body {
 
 .key:hover {
   cursor: pointer;
-  background-color: #003366;
+  background-color: #660000;
 }
 
 .key:active {
@@ -81,34 +105,41 @@ body {
 
 .backspace {
   min-width: 100px;
+  border-radius: 20px;
 }
 
 .tab {
   min-width: 50px;
+  border-radius: 20px;
 }
 
 .caps {
   min-width: 70px;
+  border-radius: 20px;
 }
 
 .enter {
   min-width: 120px;
+  border-radius: 20px;
 }
 
 .lshift {
   min-width: 100px;
+  border-radius: 20px;
 }
 
 .rshift {
   min-width: 90px;
+  border-radius: 20px;
 }
 
 .space {
   min-width: 350px;
+  border-radius: 20px;
 }
 
 .pressed {
-  background-color: #003366;
+  background-color: #660000;
   -webkit-transform: scale(0.9);
           transform: scale(0.9);
 }

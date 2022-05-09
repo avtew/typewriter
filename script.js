@@ -1,25 +1,45 @@
-// Keyboard layout
+// Create keyboard layout
 
 const body = document.querySelector('body');
+
 const wrapper = document.createElement('div');
 wrapper.className = 'wrapper';
 body.appendChild(wrapper);
+
+const header = document.createElement('div');
+header.className = 'header';
+wrapper.appendChild(header);
+
+const logo = document.createElement('div');
+logo.className = 'logo';
+logo.style.backgroundImage = "url('./assets/logo.png')";
+logo.style.backgroundSize = 'cover';
+header.appendChild(logo);
+
+const title = document.createElement('div');
+title.className = 'title';
+title.innerHTML = 'The Typewriter';
+header.appendChild(title);
+
 const input = document.createElement('textarea');
 input.className = 'input';
 wrapper.appendChild(input);
+
 const boardTable = document.createElement('div');
 boardTable.className = 'board-table';
 wrapper.appendChild(boardTable);
+
 const boardRow = document.createElement('div');
 boardRow.className = 'board-row';
+
 const key = document.createElement('div');
 key.className = 'key';
 for (let i = 0; i < 5; i++) {
     let clone = boardRow.cloneNode(true);
     boardTable.appendChild(clone);
 }
-const rows = document.querySelectorAll('.board-row');
 
+const rows = document.querySelectorAll('.board-row');
 for (let i = 0; i < 13; i++) {
     let clone = key.cloneNode(true);
     rows[0].appendChild(clone);
@@ -27,7 +47,6 @@ for (let i = 0; i < 13; i++) {
 const backspace = document.createElement('div');
 backspace.className = 'key backspace';
 rows[0].appendChild(backspace);
-
 for (let i = 0; i < 14; i++) {
     let clone = key.cloneNode(true);
     rows[1].appendChild(clone);
@@ -62,6 +81,9 @@ for (let i = 0; i < 8; i++) {
 const space = document.createElement('div');
 space.className = 'key space';
 rows[4].insertBefore(space, rows[4].children[3]);
+
+document.querySelector('.input').focus();
+document.getElementsByClassName('input')[0].placeholder = 'Type something... \nUse ctrl + alt for change language';
 
 let keys = [
     {code: 'Backquote', en: '`', ru: 'ё', shiften: '~', shiftru: '~'},
@@ -130,7 +152,7 @@ let keys = [
     {code: 'ControlRight', en: 'Ctrl', ru: 'Ctrl', shiften: 'Ctrl', shiftru: 'Ctrl'},
 ]
 
-// Change language keys display
+// Change language display
 
 let lang = 'en';
 isShifted = false;
@@ -157,7 +179,7 @@ addEventListener('keydown', function(event) {
     }
 });
 
-// Change register keys display
+// Change case display
 
 addEventListener("keydown", function(event) {
     if (event.key === 'Shift') {
