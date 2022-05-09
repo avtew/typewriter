@@ -82,7 +82,6 @@ const space = document.createElement('div');
 space.className = 'key space';
 rows[4].insertBefore(space, rows[4].children[3]);
 
-document.querySelector('.input').focus();
 document.getElementsByClassName('input')[0].placeholder = 'Type something... \nUse ctrl + alt for change language';
 
 let keys = [
@@ -144,13 +143,16 @@ let keys = [
     {code: 'ControlLeft', en: 'Ctrl', ru: 'Ctrl', shiften: 'Ctrl', shiftru: 'Ctrl'}, 
     {code: 'MetaLeft', en: 'Win', ru: 'Win', shiften: 'Win', shiftru: 'Win'}, 
     {code: 'AltLeft', en: 'Alt', ru: 'Alt', shiften: 'Alt', shiftru: 'Alt'}, 
-    {code: 'Space', en: '', ru: '', shiften: '', shiftru: ''},
+    {code: 'Space', en: ' ', ru: ' ', shiften: ' ', shiftru: ' '},
     {code: 'AltRight', en: 'Alt', ru: 'Alt', shiften: 'Alt', shiftru: 'Alt'}, 
     {code: 'ArrowLeft', en: '◄', ru: '◄', shiften: '◄', shiftru: '◄'}, 
     {code: 'ArrowDown', en: '▼', ru: '▼', shiften: '▼', shiftru: '▼'}, 
     {code: 'ArrowRight', en: '►', ru: '►', shiften: '►', shiftru: '►'}, 
     {code: 'ControlRight', en: 'Ctrl', ru: 'Ctrl', shiften: 'Ctrl', shiftru: 'Ctrl'},
 ]
+
+let keyboard = document.querySelectorAll('.key');
+keyboard.forEach((el) => el.addEventListener("click", inputText));
 
 // Change language display
 
@@ -181,8 +183,9 @@ addEventListener('keydown', function(event) {
 
 // Change case display
 
-addEventListener("keydown", function(event) {
+addEventListener("keydown", function(event) {   // shift down
     if (event.key === 'Shift') {
+        isShifted = true;
         if (lang === 'en') {
             for (let i = 0; i < keys.length; i++) {
                 document.getElementsByClassName('key')[i].innerHTML = keys[i].shiften;
@@ -195,8 +198,9 @@ addEventListener("keydown", function(event) {
     }
 });
 
-addEventListener("keyup", function(event) {
+addEventListener("keyup", function(event) {   // shift up
     if (event.key === 'Shift') {
+        isShifted = false;
         if (lang === 'en') {
             for (let i = 0; i < keys.length; i++) {
                 document.getElementsByClassName('key')[i].innerHTML = keys[i].en;
@@ -209,7 +213,7 @@ addEventListener("keyup", function(event) {
     }
 });
 
-addEventListener("keydown", function(event) {
+addEventListener("keydown", function(event) {   // CapsLock
     if (event.key === 'CapsLock') {
         if (isShifted === false) {
             isShifted = true;
@@ -239,7 +243,7 @@ addEventListener("keydown", function(event) {
     }
 });
 
-addEventListener("keydown", function (event) {
+addEventListener("keydown", function (event) {   // Animation
     for (let i = 0; i < keys.length; i++) {
         if (event.code === keys[i].code && event.code !== 'CapsLock') {
             document.getElementsByClassName('key')[i].classList.add('pressed');
@@ -253,3 +257,21 @@ addEventListener("keyup", function (event) {
         }
     }
 })
+
+function inputText() {
+    for (let i = 0; i < keys.length; i++) {
+        let index = [...keyboard].indexOf(this);
+        if (index === i && index !== 13 && index !== 14 && index !== 28 && index !== 29 && index !== 41 && index !== 42 && index !== 54  && index !== 55 && index !== 56 && index !== 57 && index !== 59 && index !== 63) {
+            if (isShifted === false && lang === 'en') {
+                input.textContent += keys[i].en;
+            } else if (isShifted === true && lang === 'en') {
+                input.textContent += keys[i].shiften;
+            } else if (isShifted === false && lang === 'ru') {
+                input.textContent += keys[i].ru;
+            } else if (isShifted === true && lang === 'ru') {
+                input.textContent += keys[i].shiftru;
+            }
+        }
+
+    }
+}
