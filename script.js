@@ -153,6 +153,7 @@ let keys = [
 
 let keyboard = document.querySelectorAll('.key');
 keyboard.forEach((el) => el.addEventListener("click", inputText));
+// keyboard.forEach((el) => el.addEventListener("click", capitalization));
 
 // Change language display
 
@@ -161,6 +162,11 @@ isShifted = false;
 
 for (let i = 0; i < keys.length; i++) {
     document.getElementsByClassName('key')[i].innerHTML = keys[i].en;
+}
+
+addEventListener('keydown', focusOn);
+function focusOn() {
+    document.querySelector('.input').focus();
 }
 
 addEventListener('keydown', function(event) {
@@ -263,15 +269,98 @@ function inputText() {
         let index = [...keyboard].indexOf(this);
         if (index === i && index !== 13 && index !== 14 && index !== 28 && index !== 29 && index !== 41 && index !== 42 && index !== 54  && index !== 55 && index !== 56 && index !== 57 && index !== 59 && index !== 63) {
             if (isShifted === false && lang === 'en') {
-                input.textContent += keys[i].en;
+                input.value += keys[i].en;
             } else if (isShifted === true && lang === 'en') {
-                input.textContent += keys[i].shiften;
+                input.value += keys[i].shiften;
             } else if (isShifted === false && lang === 'ru') {
-                input.textContent += keys[i].ru;
+                input.value += keys[i].ru;
             } else if (isShifted === true && lang === 'ru') {
-                input.textContent += keys[i].shiftru;
+                input.value += keys[i].shiftru;
             }
+        } else if (index === i && index === 29) {
+            if (isShifted === false) {
+                isShifted = true;
+                document.getElementsByClassName('key')[29].classList.add('pressed');
+                if (lang === 'en') {
+                    for (let i = 0; i < keys.length; i++) {
+                        document.getElementsByClassName('key')[i].innerHTML = keys[i].shiften;
+                    }
+                } else if (lang === 'ru') {
+                    for (let i = 0; i < keys.length; i++) {
+                        document.getElementsByClassName('key')[i].innerHTML = keys[i].shiftru;
+                    }
+                }
+            } else {
+                isShifted = false;
+                document.getElementsByClassName('key')[29].classList.remove('pressed');
+                if (lang === 'en') {
+                    for (let i = 0; i < keys.length; i++) {
+                        document.getElementsByClassName('key')[i].innerHTML = keys[i].en;
+                    }
+                } else if (lang === 'ru') {
+                    for (let i = 0; i < keys.length; i++) {
+                        document.getElementsByClassName('key')[i].innerHTML = keys[i].ru;
+                    }
+                }
+            }
+        } else if (index === i && index === 41) {
+            input.value += '\n';
+        } else if (index === i && index === 14) {
+            input.value += '        ';
+        } else if (index === i && index === 13) {
+            let value = String(input.value);
+            let start = input.selectionStart;
+            let split = value.split('');
+            split.splice(start - 1, 1);
+            input.value = split.join('');
+        } else if (index === i && index === 28) {
+            let value = String(input.value);
+            let start = input.selectionStart;
+            let split = value.split('');
+            split.splice(start, 1);
+            input.value = split.join('');
+            console.log(input.selectionStart);
+            input.selectionStart = start;
+            console.log(input.selectionStart);
         }
-
     }
 }
+
+keyboard.forEach((el) => el.addEventListener("mousedown", caseUp));
+keyboard.forEach((el) => el.addEventListener("mouseup", caseDown));
+
+function caseUp() {
+    for (let i = 0; i < keys.length; i++) {
+        let index = [...keyboard].indexOf(this);
+        if (index === i && index === 42 || index === 54) {
+            isShifted = true;
+            if (lang === 'en') {
+                for (let i = 0; i < keys.length; i++) {
+                    document.getElementsByClassName('key')[i].innerHTML = keys[i].shiften;
+                }
+            } else if (lang === 'ru') {
+                for (let i = 0; i < keys.length; i++) {
+                    document.getElementsByClassName('key')[i].innerHTML = keys[i].shiftru;
+                }
+            }
+        }
+    }
+};
+
+function caseDown() {
+    for (let i = 0; i < keys.length; i++) {
+        let index = [...keyboard].indexOf(this);
+        if (index === i && index === 42 || index === 54) {
+            isShifted = false;
+            if (lang === 'en') {
+                for (let i = 0; i < keys.length; i++) {
+                    document.getElementsByClassName('key')[i].innerHTML = keys[i].en;
+                }
+            } else if (lang === 'ru') {
+                for (let i = 0; i < keys.length; i++) {
+                    document.getElementsByClassName('key')[i].innerHTML = keys[i].ru;
+                }
+            }
+        }
+    }
+};
