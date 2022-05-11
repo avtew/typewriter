@@ -283,7 +283,7 @@ const keys = [
 
 const keyboard = document.querySelectorAll('.key');
 
-let lang = 'en';
+let lang;
 let isShifted = false;
 
 function setLocalStorage() {
@@ -292,7 +292,13 @@ function setLocalStorage() {
 
 function getLocalStorage() {
   const currentLang = localStorage.getItem('lang');
-  lang = currentLang;
+  if (currentLang === null) {
+    lang = 'en'
+    setLocalStorage();
+  } else {
+    lang = currentLang;
+    setLocalStorage();
+  }
 }
 
 // Change language display
@@ -505,7 +511,7 @@ function caseDown() {
 }
 
 document.addEventListener('keydown', focusOn);
-document.addEventListener('DOMContentLoaded', setLocalStorage);
+document.addEventListener('DOMContentLoaded', getLocalStorage);
 document.addEventListener('DOMContentLoaded', setLayout);
 keyboard.forEach((el) => el.addEventListener('click', inputText));
 keyboard.forEach((el) => el.addEventListener('mousedown', caseUp));
