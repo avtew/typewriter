@@ -283,13 +283,28 @@ const keys = [
 
 const keyboard = document.querySelectorAll('.key');
 
-// Change language display
-
 let lang = 'en';
 let isShifted = false;
 
-for (let i = 0; i < keys.length; i += 1) {
-  document.getElementsByClassName('key')[i].innerHTML = keys[i].en;
+function setLocalStorage() {
+  localStorage.setItem('lang', lang);
+}
+
+function getLocalStorage() {
+  const currentLang = localStorage.getItem('lang');
+  lang = currentLang;
+}
+
+// Change language display
+
+function setLayout() {
+  for (let i = 0; i < keys.length; i += 1) {
+    if (lang === 'en') {
+      document.getElementsByClassName('key')[i].innerHTML = keys[i].en;
+    } else if (lang === 'ru') {
+      document.getElementsByClassName('key')[i].innerHTML = keys[i].ru;
+    }
+  }
 }
 
 function focusOn() {
@@ -303,12 +318,14 @@ document.addEventListener('keydown', (event) => {
       lang = 'en';
       for (let i = 0; i < keys.length; i += 1) {
         document.getElementsByClassName('key')[i].innerHTML = keys[i].en;
+        setLocalStorage();
       }
     } else if (lang === 'en') {
       isShifted = false;
       lang = 'ru';
       for (let i = 0; i < keys.length; i += 1) {
         document.getElementsByClassName('key')[i].innerHTML = keys[i].ru;
+        setLocalStorage();
       }
     }
   }
@@ -488,6 +505,8 @@ function caseDown() {
 }
 
 document.addEventListener('keydown', focusOn);
+document.addEventListener('DOMContentLoaded', getLocalStorage);
+document.addEventListener('DOMContentLoaded', setLayout);
 keyboard.forEach((el) => el.addEventListener('click', inputText));
 keyboard.forEach((el) => el.addEventListener('mousedown', caseUp));
 keyboard.forEach((el) => el.addEventListener('mouseup', caseDown));
