@@ -1,3 +1,5 @@
+console.log('Ссылка на пул-реквест: https://github.com/avtew/virtual-keyboard/pull/4');
+
 // Create keyboard layout
 
 const body = document.querySelector('body');
