@@ -505,7 +505,7 @@ function caseDown() {
 }
 
 document.addEventListener('keydown', focusOn);
-document.addEventListener('DOMContentLoaded', getLocalStorage);
+document.addEventListener('DOMContentLoaded', setLocalStorage);
 document.addEventListener('DOMContentLoaded', setLayout);
 keyboard.forEach((el) => el.addEventListener('click', inputText));
 keyboard.forEach((el) => el.addEventListener('mousedown', caseUp));
