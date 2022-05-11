@@ -293,7 +293,7 @@ function setLocalStorage() {
 function getLocalStorage() {
   const currentLang = localStorage.getItem('lang');
   if (currentLang === null) {
-    lang = 'en'
+    lang = 'en';
     setLocalStorage();
   } else {
     lang = currentLang;
