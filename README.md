@@ -2,6 +2,8 @@
 
 The pure JavaScript project.
 
+https://avtew.github.io/typewriter/
+
 ## Features:
 - All elements generate automatically. No HTML markup is used
 - Hardware and software input
